@@ -1,7 +1,10 @@
 ﻿using System;
 using Blish_HUD;
+using Blish_HUD.Content;
 using Blish_HUD.Controls;
+using Blish_HUD.Input;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.BitmapFonts;
 using Color = Microsoft.Xna.Framework.Color;
 using Point = Microsoft.Xna.Framework.Point;
@@ -11,7 +14,9 @@ namespace Nekres.Screenshot_Manager.UI.Controls
 {
     internal sealed class ConfirmationPrompt : Container
     {
-        private static Texture2D _bgTexture = GameService.Content.GetTexture("tooltip");
+        private AsyncTexture2D _bgTexture;
+        private static ConfirmationPrompt _singleton;
+
         private static BitmapFont _font = GameService.Content.GetFont(ContentService.FontFace.Menomonia, ContentService.FontSize.Size24, ContentService.FontStyle.Regular);
 
         private Rectangle _confirmButtonBounds;
@@ -36,17 +41,66 @@ namespace Nekres.Screenshot_Manager.UI.Controls
             _cancelButtonButtonText = cancelButtonText;
             _challengeText = challengeText;
             this.ZIndex = 999;
+            GameService.Input.Keyboard.KeyPressed += OnKeyPressed;
+
+            this.LoadTextures();
+        }
+
+        private void LoadTextures() {
+            _bgTexture = GameService.Content.DatAssetCache.GetTextureFromAssetId(156003);
         }
 
         public static void ShowPrompt(Action<bool> callback, string text, string confirmButtonText = "Confirm", string cancelButtonText = "Cancel", string challengeText = "")
         {
-            var confirmationPrompt = new ConfirmationPrompt(callback, text, confirmButtonText, cancelButtonText, challengeText)
+            if (_singleton != null) {
+                return;
+            }
+
+            _singleton = new ConfirmationPrompt(callback, text, confirmButtonText, cancelButtonText, challengeText)
             {
                 Parent = Graphics.SpriteScreen,
                 Location = Point.Zero,
                 Size = Graphics.SpriteScreen.Size
             };
-            confirmationPrompt.Show();
+            _singleton.Show();
+        }
+
+        private void Confirm() {
+            if (_confirmButton == null || !_confirmButton.Enabled) {
+                return;
+            }
+            GameService.Input.Keyboard.KeyPressed -= OnKeyPressed;
+            GameService.Content.PlaySoundEffectByName("button-click");
+            _singleton = null;
+            _callback(true);
+            this.Dispose();
+        }
+
+        private void Cancel() {
+            GameService.Input.Keyboard.KeyPressed -= OnKeyPressed;
+            GameService.Content.PlaySoundEffectByName("button-click");
+            _singleton = null;
+            _callback(false);
+            this.Dispose();
+        }
+
+        private void OnKeyPressed(object o, KeyboardEventArgs e) {
+            switch (e.Key) {
+                case Keys.Enter:
+                    this.Confirm();
+                    break;
+                case Keys.Escape:
+                    this.Cancel();
+                    break;
+                default: return;
+            }
+        }
+
+        protected override void DisposeControl() {
+            _singleton = null;
+            _bgTexture?.Dispose();
+            GameService.Input.Keyboard.KeyPressed -= OnKeyPressed;
+            base.DisposeControl();
         }
 
         private void CreateButtons()
@@ -63,9 +117,7 @@ namespace Nekres.Screenshot_Manager.UI.Controls
                 };
                 _confirmButton.Click += (_, _) =>
                 {
-                    GameService.Content.PlaySoundEffectByName("button-click");
-                    _callback(true);
-                    this.Dispose();
+                    this.Confirm();
                 };
             }
 
@@ -80,9 +132,7 @@ namespace Nekres.Screenshot_Manager.UI.Controls
                 };
                 _cancelButton.Click += (_, _) =>
                 {
-                    GameService.Content.PlaySoundEffectByName("button-click");
-                    _callback(false);
-                    this.Dispose();
+                    this.Cancel();
                 };
             }
         }
@@ -125,7 +175,7 @@ namespace Nekres.Screenshot_Manager.UI.Controls
             spriteBatch.DrawOnCtrl(this, ContentService.Textures.Pixel, new Rectangle(bgBounds.X, bgBounds.Y + bgBounds.Height, bgBounds.Width, 1), Color.Black);
 
             // Draw Background
-            spriteBatch.DrawOnCtrl(this, _bgTexture, bgBounds, Color.White);
+            spriteBatch.DrawOnCtrl(this, _bgTexture, bgBounds, new Rectangle(29, 23, 942, 942), Color.White);
 
             // Draw text
             spriteBatch.DrawStringOnCtrl(this, _text, _font, new Rectangle(bgBounds.X + 6, bgBounds.Y + 5, bgBounds.Width - 11, bgBounds.Height), Color.White, true, HorizontalAlignment.Left, VerticalAlignment.Top);

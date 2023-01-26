@@ -84,7 +84,7 @@ namespace Nekres.Screenshot_Manager.Core
             // Delaying so created file handle is closed (write completed) before we look at the directory for its newest file.
             await Task.Delay(NewFileNotificationDelay).ContinueWith(async delegate
             {
-                var timeout = DateTime.UtcNow.AddMilliseconds(ScreenshotManagerModule.FileTimeOutMilliseconds);
+                var timeout = DateTime.UtcNow.AddMilliseconds(ScreenshotManagerModule.FILE_TIME_OUT_MILLISECONDS);
                 while (DateTime.UtcNow < timeout)
                 {
                     try

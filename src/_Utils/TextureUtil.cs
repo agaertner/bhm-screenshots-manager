@@ -41,8 +41,8 @@ namespace Nekres.Screenshot_Manager
         //TODO: Consider making thumbnail independent of shell
         public static async Task<Texture2D> GetThumbnail(string filePath)
         {
-            return await Task.Run(async () => {
-                var timeout = DateTime.UtcNow.AddMilliseconds(ScreenshotManagerModule.FileTimeOutMilliseconds);
+            return await Task.Run(() => {
+                var timeout = DateTime.UtcNow.AddMilliseconds(ScreenshotManagerModule.FILE_TIME_OUT_MILLISECONDS);
                 while (DateTime.UtcNow < timeout)
                 {
                     try
@@ -56,8 +56,9 @@ namespace Nekres.Screenshot_Manager
                         var buffer = new byte[textureStream.Length];
                         textureStream.Position = 0;
                         // ReSharper disable once MustUseReturnValue
-                        await textureStream.ReadAsync(buffer, 0, buffer.Length);
-                        return Texture2D.FromStream(GameService.Graphics.GraphicsDevice, textureStream);
+                        textureStream.Read(buffer, 0, buffer.Length);
+                        using var gdc = GameService.Graphics.LendGraphicsDeviceContext();
+                        return Texture2D.FromStream(gdc.GraphicsDevice, textureStream);
                     }
                     catch (Exception e) when (e is ShellException or IOException or UnauthorizedAccessException or SecurityException or InvalidOperationException)
                     {
@@ -72,9 +73,9 @@ namespace Nekres.Screenshot_Manager
 
         public static async Task<Texture2D> GetScreenShot(string filePath)
         {
-            return await Task.Run(async () =>
+            return await Task.Run(() =>
             {
-                var timeout = DateTime.UtcNow.AddMilliseconds(ScreenshotManagerModule.FileTimeOutMilliseconds);
+                var timeout = DateTime.UtcNow.AddMilliseconds(ScreenshotManagerModule.FILE_TIME_OUT_MILLISECONDS);
                 while (DateTime.UtcNow < timeout)
                 {
                     try
@@ -95,8 +96,9 @@ namespace Nekres.Screenshot_Manager
                         var buffer = new byte[textureStream.Length];
                         textureStream.Position = 0;
                         // ReSharper disable once MustUseReturnValue
-                        await textureStream.ReadAsync(buffer, 0, buffer.Length);
-                        return Texture2D.FromStream(GameService.Graphics.GraphicsDevice, textureStream);
+                        textureStream.Read(buffer, 0, buffer.Length);
+                        using var gdc = GameService.Graphics.LendGraphicsDeviceContext();
+                        return Texture2D.FromStream(gdc.GraphicsDevice, textureStream);
                     }
                     catch (Exception e) when (e is IOException or UnauthorizedAccessException or SecurityException or InvalidOperationException)
                     {
