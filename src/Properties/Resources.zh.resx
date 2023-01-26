@@ -126,7 +126,7 @@ Fuzzy</comment>
     <value>该图像正在被其他进程使用。</value>
     <comment>Reason for a failed file operation.</comment>
   </data>
-  <data name="The image file doesn&apos;t exist anymore!" xml:space="preserve">
+  <data name="The image file doesn't exist anymore!" xml:space="preserve">
     <value>该图像已经不存在了！</value>
     <comment>Reason for a failed file operation.</comment>
   </data>
@@ -150,7 +150,7 @@ Fuzzy</comment>
   </data>
   <data name="Rename Image" xml:space="preserve">
     <value>图像重命名</value>
-    <comment>Imperative. Tooltip when hovering a thumbnail&apos;s input textbox.</comment>
+    <comment>Imperative. Tooltip when hovering a thumbnail's input textbox.</comment>
   </data>
   <data name="Click To Zoom" xml:space="preserve">
     <value>点击缩放</value>
@@ -167,11 +167,11 @@ Fuzzy</comment>
   </data>
   <data name="Favourite" xml:space="preserve">
     <value>收藏</value>
-    <comment>Tooltip when hovering a thumbnail&apos;s favourite marker.</comment>
+    <comment>Tooltip when hovering a thumbnail's favourite marker.</comment>
   </data>
   <data name="Unfavourite" xml:space="preserve">
     <value>取消收藏</value>
-    <comment>Tooltip when hovering a thumbnail&apos;s unfavourite marker.</comment>
+    <comment>Tooltip when hovering a thumbnail's unfavourite marker.</comment>
   </data>
   <data name="Image name cannot be empty." xml:space="preserve">
     <value>图像名字不能为空。</value>
@@ -183,7 +183,7 @@ Fuzzy</comment>
   </data>
   <data name="Normal" xml:space="preserve">
     <value>正常</value>
-    <comment>Display name of &quot;Take a normal screenshot.&quot;</comment>
+    <comment>Display name of "Take a normal screenshot."</comment>
   </data>
   <data name="Take a stereoscopic screenshot." xml:space="preserve">
     <value>拍一张立体的截图。</value>
@@ -195,7 +195,7 @@ Fuzzy</comment>
   </data>
   <data name="Stereoscopic" xml:space="preserve">
     <value>立体的</value>
-    <comment>Display name of &quot;Take a stereoscopic screenshot.&quot;</comment>
+    <comment>Display name of "Take a stereoscopic screenshot."</comment>
   </data>
   <data name="Disable Screenshot Notification" xml:space="preserve">
     <value>禁用屏幕截图通知</value>
@@ -241,5 +241,20 @@ Fuzzy</comment>
   <data name="Disables the corner icon in the navigation menu." xml:space="preserve">
     <value>停用导航菜单中的图标。</value>
     <comment>Setting tooltip</comment>
+  </data>
+  <data name="Choose your preferred image format." xml:space="preserve">
+    <value>选择你喜欢的图像格式。</value>
+  </data>
+  <data name="General Options" xml:space="preserve">
+    <value>一般选项</value>
+  </data>
+  <data name="Image Format" xml:space="preserve">
+    <value>图片格式</value>
+  </data>
+  <data name="Screenshot Options" xml:space="preserve">
+    <value>屏幕截图选项</value>
+  </data>
+  <data name="Sound Options" xml:space="preserve">
+    <value>声音选项</value>
   </data>
 </root>

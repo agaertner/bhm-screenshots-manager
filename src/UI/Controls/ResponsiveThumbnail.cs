@@ -21,19 +21,17 @@ namespace Nekres.Screenshot_Manager.UI.Controls
         private Rectangle _nameTextBoxBounds;
         public TextBox NameTextBox { get; private set; }
 
-        private const int MaxFileNameLength = 50;
+        private const int MAX_FILE_NAME_LENGTH = 50;
 
         private readonly IEnumerable<char> _invalidFileNameCharacters;
 
-        private static Texture2D _completeHeartIcon = ScreenshotManagerModule.ModuleInstance.ContentsManager.GetTexture("complete_heart.png");
-        private static Texture2D _incompleteHeartIcon = ScreenshotManagerModule.ModuleInstance.ContentsManager.GetTexture("incomplete_heart.png");
-
-        private static Texture2D _trashcanClosedIcon64 = ScreenshotManagerModule.ModuleInstance.ContentsManager.GetTexture("trashcanClosed_icon_64x64.png");
-        private static Texture2D _trashcanOpenIcon64 = ScreenshotManagerModule.ModuleInstance.ContentsManager.GetTexture("trashcanOpen_icon_64x64.png");
-        //private static Texture2D _trashcanClosedIcon128 = ScreenshotManagerModule.ModuleInstance.ContentsManager.GetTexture("trashcanClosed_icon_128x128.png");
-        //private static Texture2D _trashcanOpenIcon128 = ScreenshotManagerModule.ModuleInstance.ContentsManager.GetTexture("trashcanOpen_icon_128x128.png");
-
-        private static Texture2D _inspectIcon = ScreenshotManagerModule.ModuleInstance.ContentsManager.GetTexture("inspect.png");
+        private static Texture2D _completeHeartIcon;
+        private static Texture2D _incompleteHeartIcon;
+        private static Texture2D _trashcanClosedIcon64;
+        private static Texture2D _trashcanOpenIcon64;
+        //private static Texture2D _trashcanClosedIcon128;
+        //private static Texture2D _trashcanOpenIcon128;
+        private static Texture2D _inspectIcon;
 
         private bool _mouseOverFavButton;
         private Rectangle _favButtonBounds;
@@ -55,9 +53,27 @@ namespace Nekres.Screenshot_Manager.UI.Controls
             }
         }
 
+        public static void DisposeTextures() {
+            _completeHeartIcon?.Dispose();
+            _incompleteHeartIcon?.Dispose();
+            _trashcanClosedIcon64?.Dispose();
+            _trashcanOpenIcon64?.Dispose();
+            //_trashcanClosedIcon128?.Dispose();
+            //_trashcanOpenIcon128?.Dispose();
+            _inspectIcon?.Dispose();
+        }
+
         public ResponsiveThumbnail(AsyncTexture2D texture, string fileName) : base(texture, fileName)
         {
             _invalidFileNameCharacters = Path.GetInvalidFileNameChars().Union(Path.GetInvalidPathChars());
+
+            _completeHeartIcon = _completeHeartIcon ?? ScreenshotManagerModule.ModuleInstance.ContentsManager.GetTexture("complete_heart.png");
+            _incompleteHeartIcon = _incompleteHeartIcon ?? ScreenshotManagerModule.ModuleInstance.ContentsManager.GetTexture("incomplete_heart.png");
+            _trashcanClosedIcon64 = _trashcanClosedIcon64 ?? ScreenshotManagerModule.ModuleInstance.ContentsManager.GetTexture("trashcanClosed_icon_64x64.png");
+            _trashcanOpenIcon64 = _trashcanOpenIcon64 ?? ScreenshotManagerModule.ModuleInstance.ContentsManager.GetTexture("trashcanOpen_icon_64x64.png");
+            //_trashcanClosedIcon128 = _trashcanClosedIcon128 ?? ScreenshotManagerModule.ModuleInstance.ContentsManager.GetTexture("trashcanClosed_icon_128x128.png");
+            //_trashcanOpenIcon128 = _trashcanOpenIcon128 ?? ScreenshotManagerModule.ModuleInstance.ContentsManager.GetTexture("trashcanOpen_icon_128x128.png");
+            _inspectIcon = _inspectIcon ?? ScreenshotManagerModule.ModuleInstance.ContentsManager.GetTexture("inspect.png");
         }
 
         protected override void OnMouseMoved(MouseEventArgs e)
@@ -120,7 +136,7 @@ namespace Nekres.Screenshot_Manager.UI.Controls
             NameTextBox = new TextBox
             {
                 Parent = this,
-                MaxLength = MaxFileNameLength,
+                MaxLength = MAX_FILE_NAME_LENGTH,
                 Size = _nameTextBoxBounds.Size,
                 Location = _nameTextBoxBounds.Location,
                 Text = Path.GetFileNameWithoutExtension(this.FileName),
@@ -138,7 +154,7 @@ namespace Nekres.Screenshot_Manager.UI.Controls
                     return;
                 }
 
-                if (NameTextBox.Text.Length > MaxFileNameLength)
+                if (NameTextBox.Text.Length > MAX_FILE_NAME_LENGTH)
                 {
                     ScreenNotification.ShowNotification(Resources.Please_enter_a_different_image_name_, ScreenNotification.NotificationType.Error);
                     NameTextBox.Text = Path.GetFileNameWithoutExtension(this.FileName);

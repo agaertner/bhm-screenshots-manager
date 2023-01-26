@@ -8,10 +8,21 @@ namespace Nekres.Screenshot_Manager
 {
     internal static class FileUtil
     {
+        public static string IndexedFilename(string stub, string extension) {
+            int ix = 0;
+            string filename;
+            do {
+                ix++;
+                var zeros = ix < 10 ? "00" : ix < 100 ? "0" : string.Empty;
+                filename = string.Format("{0}{1}{2}.{3}", stub, zeros, ix, extension);
+            } while (File.Exists(filename));
+            return filename;
+        }
+
         public static async Task<bool> MoveAsync(string oldFilePath, string newFilePath)
         {
             return await Task.Run(() => { 
-                var timeout = DateTime.UtcNow.AddMilliseconds(ScreenshotManagerModule.FileTimeOutMilliseconds);
+                var timeout = DateTime.UtcNow.AddMilliseconds(ScreenshotManagerModule.FILE_TIME_OUT_MILLISECONDS);
                 while (DateTime.UtcNow < timeout) {
                     try
                     {
@@ -32,7 +43,7 @@ namespace Nekres.Screenshot_Manager
         public static async Task<bool> DeleteAsync(string filePath, bool sendToRecycleBin = true)
         {
             return await Task.Run(() => {
-                var timeout = DateTime.UtcNow.AddMilliseconds(ScreenshotManagerModule.FileTimeOutMilliseconds);
+                var timeout = DateTime.UtcNow.AddMilliseconds(ScreenshotManagerModule.FILE_TIME_OUT_MILLISECONDS);
                 while (DateTime.UtcNow < timeout)
                 {
                     try
