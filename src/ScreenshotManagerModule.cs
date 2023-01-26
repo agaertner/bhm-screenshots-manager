@@ -170,7 +170,7 @@ namespace Nekres.Screenshot_Manager
         {
         }
 
-        private void OnScreenshotNormalBindingActivated(object o, EventArgs e) {
+        private async void OnScreenshotNormalBindingActivated(object o, EventArgs e) {
             System.Drawing.Imaging.ImageFormat format;
             string ext;
 
@@ -204,7 +204,7 @@ namespace Nekres.Screenshot_Manager
                     g.CompositingQuality = CompositingQuality.HighQuality;
                     g.CopyFromScreen(new System.Drawing.Point(bounds.Left, bounds.Top), System.Drawing.Point.Empty, new Size(bounds.Size.X, bounds.Size.Y));
                 }
-                bitmap.Save(name, format);
+                await bitmap.SaveOnNetworkShare(name, format);
             }
         }
 
