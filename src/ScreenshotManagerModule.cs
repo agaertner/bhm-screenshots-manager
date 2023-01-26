@@ -19,6 +19,7 @@ using System.Drawing;
 using System.IO;
 using Blish_HUD.Extended;
 using Nekres.Screenshot_Manager.UI.Controls;
+using System.Drawing.Drawing2D;
 
 namespace Nekres.Screenshot_Manager
 {
@@ -197,6 +198,10 @@ namespace Nekres.Screenshot_Manager
 
             using (Bitmap bitmap = new Bitmap(bounds.Width, bounds.Height)) {
                 using (Graphics g = Graphics.FromImage(bitmap)) {
+                    g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    g.SmoothingMode = SmoothingMode.HighQuality;
+                    g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                    g.CompositingQuality = CompositingQuality.HighQuality;
                     g.CopyFromScreen(new System.Drawing.Point(bounds.Left, bounds.Top), System.Drawing.Point.Empty, new Size(bounds.Size.X, bounds.Size.Y));
                 }
                 bitmap.Save(name, format);
