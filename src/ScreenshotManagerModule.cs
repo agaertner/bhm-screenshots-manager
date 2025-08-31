@@ -10,17 +10,16 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Nekres.Screenshot_Manager.Core;
 using Nekres.Screenshot_Manager.Properties;
+using Nekres.Screenshot_Manager.UI.Controls;
 using Nekres.Screenshot_Manager.UI.Models;
 using Nekres.Screenshot_Manager.UI.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using Blish_HUD.Extended;
-using Nekres.Screenshot_Manager.UI.Controls;
-using System.Drawing.Drawing2D;
-
 namespace Nekres.Screenshot_Manager
 {
     public enum ImageFormatExt {
@@ -57,12 +56,13 @@ namespace Nekres.Screenshot_Manager
         internal SettingEntry<KeyBinding> ScreenshotNormalBinding;
         //internal SettingEntry<KeyBinding> ScreenshotStereoscopicBinding;
 
-        internal SettingEntry<bool> MuteSound;
-        internal SettingEntry<bool> DisableNotification;
-        internal SettingEntry<bool> SendToRecycleBin;
-        internal SettingEntry<bool> HideCornerIcon;
-        internal SettingEntry<List<string>> Favorites;
+        internal SettingEntry<bool>           MuteSound;
+        internal SettingEntry<bool>           DisableNotification;
+        internal SettingEntry<bool>           SendToRecycleBin;
+        internal SettingEntry<bool>           HideCornerIcon;
+        internal SettingEntry<List<string>>   Favorites;
         internal SettingEntry<ImageFormatExt> Format;
+        internal SettingEntry<bool>           CopyToClipboard;
         #endregion
 
         private Texture2D _icon64;
@@ -85,17 +85,13 @@ namespace Nekres.Screenshot_Manager
             HideCornerIcon = generalOptions.DefineSetting("hideCornerIcon", false,
                 () => Resources.Hide_Corner_Icon,
                 () => Resources.Disables_the_corner_icon_in_the_navigation_menu_);
-
             var soundOptions = settings.AddSubCollection("audio", true, false, () => Resources.Sound_Options);
-
             MuteSound = soundOptions.DefineSetting("muteSound", false, 
                 () => Resources.Mute_Screenshot_Sound,
                 () => Resources.Mutes_the_sound_alert_when_a_new_screenshot_has_been_captured_);
-
             DisableNotification = soundOptions.DefineSetting("disableNotification", false,
                 () => Resources.Disable_Screenshot_Notification,
                 () => Resources.Disables_the_notification_when_a_new_screenshot_has_been_captured_);
-
             var screenshotOptions = settings.AddSubCollection("capture", true, false, () => Resources.Screenshot_Options);
             ScreenshotNormalBinding = screenshotOptions.DefineSetting("normalKey", new KeyBinding(Keys.F10),
                 () => Resources.Normal, 
@@ -106,10 +102,14 @@ namespace Nekres.Screenshot_Manager
             Format = screenshotOptions.DefineSetting("imageFormat", ImageFormatExt.Png,
                 () => Resources.Image_Format,
                 () => Resources.Choose_your_preferred_image_format_);
+            CopyToClipboard = screenshotOptions.DefineSetting("copyToClipboard", true,
+                () => Resources.Copy_to_Clipboard, 
+                () => Resources.Copies_the_screenshot_to_the_clipboard_after_it_has_been_taken_);
             SendToRecycleBin = screenshotOptions.DefineSetting("sendToRecycleBin", true,
                 () => Resources.Delete_sends_to_Recycle_Bin,
-                () => Resources.By_default__screenshots_are_sent_to_the_Recycle_Bin_so_that_they_can_be_recovered_if_needed__nWhen_this_feature_is_disabled__deleted_screenshots_are_removed_from_the_hard_disk_and_their_space_is_marked_as_overwriteable_);
-
+                () => string.Format("{0}\n{1}",
+                                    Resources.By_default__screenshots_are_sent_to_the_Recycle_Bin_so_that_they_can_be_recovered_if_needed_, 
+                                    Resources.When_this_feature_is_disabled__deleted_screenshots_are_removed_from_the_hard_disk_and_their_space_is_marked_as_overwriteable_));
             var selfManagedSettings = settings.AddSubCollection("ManagedSettings", false, false);
             Favorites = selfManagedSettings.DefineSetting("favorites", new List<string>());
         }
@@ -194,17 +194,20 @@ namespace Nekres.Screenshot_Manager
 
             var name = FileUtil.IndexedFilename(Path.Combine(DirectoryUtil.ScreensPath, "gw"), ext);
 
-            WindowUtil.GetInnerBounds(GameService.GameIntegration.Gw2Instance.Gw2WindowHandle, out var bounds);
-
-            using (Bitmap bitmap = new Bitmap(bounds.Width, bounds.Height)) {
+            if (WindowUtil.GetInnerBounds(GameService.GameIntegration.Gw2Instance.Gw2WindowHandle, out var bounds)) {
+                using Bitmap bitmap = new Bitmap(bounds.Width, bounds.Height);
                 using (Graphics g = Graphics.FromImage(bitmap)) {
-                    g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                    g.SmoothingMode = SmoothingMode.HighQuality;
-                    g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                    g.InterpolationMode  = InterpolationMode.HighQualityBicubic;
+                    g.SmoothingMode      = SmoothingMode.HighQuality;
+                    g.PixelOffsetMode    = PixelOffsetMode.HighQuality;
                     g.CompositingQuality = CompositingQuality.HighQuality;
-                    g.CopyFromScreen(new System.Drawing.Point(bounds.Left, bounds.Top), System.Drawing.Point.Empty, new Size(bounds.Size.X, bounds.Size.Y));
+                    g.CopyFromScreen(new System.Drawing.Point(bounds.Left, bounds.Top), System.Drawing.Point.Empty, new Size(bounds.Width, bounds.Height));
                 }
                 await bitmap.SaveOnNetworkShare(name, format);
+                if (this.CopyToClipboard.Value) {
+                    bitmap.SaveToClipboard(format);
+                    ScreenNotification.ShowNotification(Resources.Copied_to_Clipboard_);
+                }
             }
         }
 

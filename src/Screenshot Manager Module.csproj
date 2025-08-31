@@ -60,9 +60,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\submodules\bhud-extended\**\*.cs" Link="_Submodules\%(RecursiveDir)%(Filename)%(Extension)" />
+    <EmbeddedResource Include="..\submodules\bhud-extended\**\Properties\*.resx" Link="_Submodules\%(RecursiveDir)%(Filename)%(Extension)">
+      <!--Required to make the ResourceManager find translations -->
+      <LogicalName>Blish_HUD.Extended.Properties.%(Filename).resources</LogicalName>
+      <Visible>False</Visible>
+    </EmbeddedResource>
     <!-- Exclude AssemblyInfo.cs of submodule projects to avoid duplication error (Compile Error CS0579) -->
     <Compile Remove="..\submodules\**\AssemblyInfo.cs" />
-    <EmbeddedResource Include="..\submodules\bhud-extended\**\Resources\*.png" Link="_Submodules\%(RecursiveDir)%(Filename)%(Extension)" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -181,6 +185,7 @@
     <Compile Include="_Extensions\GraphicsExtensions.cs" />
     <Compile Include="_Extensions\RectangleExtensions.cs" />
     <Compile Include="_Extensions\SizeExtensions.cs" />
+    <Compile Include="_Extensions\TextureExtensions.cs" />
     <Compile Include="_Utils\FileUtil.cs" />
     <Compile Include="_Utils\TextureUtil.cs" />
   </ItemGroup>
@@ -189,9 +194,8 @@
       <HintPath>.\packages\AsyncClipboardService.1.7.1\lib\net45\AsyncClipboardService.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Blish HUD, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\BlishHUD.1.0.0\lib\net472\Blish HUD.exe</HintPath>
-      <Private>False</Private>
+    <Reference Include="Blish HUD, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\BlishHUD.1.2.0\lib\net472\Blish HUD.exe</HintPath>
     </Reference>
     <Reference Include="CSCore, Version=1.2.1.2, Culture=neutral, PublicKeyToken=5a08f2b6f4415dea">
       <HintPath>.\packages\CSCore.1.2.1.2\lib\net35-client\CSCore.dll</HintPath>
@@ -219,24 +223,35 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Gw2Sharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Gw2Sharp.1.7.3\lib\netstandard2.0\Gw2Sharp.dll</HintPath>
+      <HintPath>packages\Gw2Sharp.1.7.4\lib\netstandard2.0\Gw2Sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
-      <HintPath>.\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    <Reference Include="Microsoft.Bcl.TimeProvider, Version=8.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Bcl.TimeProvider.8.0.1\lib\net462\Microsoft.Bcl.TimeProvider.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=6.14.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>.\packages\Microsoft.IdentityModel.JsonWebTokens.6.14.1\lib\net472\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Logging.Abstractions.2.1.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.Logging, Version=6.14.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>.\packages\Microsoft.IdentityModel.Logging.6.14.1\lib\net472\Microsoft.IdentityModel.Logging.dll</HintPath>
+    <Reference Include="Microsoft.IdentityModel.Abstractions, Version=8.14.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.IdentityModel.Abstractions.8.14.0\lib\net472\Microsoft.IdentityModel.Abstractions.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.Tokens, Version=6.14.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>.\packages\Microsoft.IdentityModel.Tokens.6.14.1\lib\net472\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=8.14.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.IdentityModel.JsonWebTokens.8.14.0\lib\net472\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=8.14.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.IdentityModel.Logging.8.14.0\lib\net472\Microsoft.IdentityModel.Logging.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=8.14.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.IdentityModel.Tokens.8.14.0\lib\net472\Microsoft.IdentityModel.Tokens.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
@@ -337,6 +352,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Design" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=6.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Diagnostics.DiagnosticSource.6.0.2\lib\net461\System.Diagnostics.DiagnosticSource.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Diagnostics.Tracing" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Globalization.Calendars" />
@@ -352,8 +371,8 @@
     <Reference Include="System.IO.FileSystem.Primitives" />
     <Reference Include="System.Linq" />
     <Reference Include="System.Linq.Expressions" />
-    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
-      <HintPath>.\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Net.Http" />
@@ -369,8 +388,8 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Runtime" />
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <HintPath>.\packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Runtime.Extensions" />
@@ -387,12 +406,12 @@
       <HintPath>packages\System.ServiceModel.Primitives.4.9.0\lib\net461\System.ServiceModel.Primitives.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="System.Text.Encodings.Web, Version=5.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
-      <HintPath>.\packages\System.Text.Encodings.Web.5.0.1\lib\net461\System.Text.Encodings.Web.dll</HintPath>
+    <Reference Include="System.Text.Encodings.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Encodings.Web.8.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="System.Text.Json, Version=5.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
-      <HintPath>.\packages\System.Text.Json.5.0.2\lib\net461\System.Text.Json.dll</HintPath>
+    <Reference Include="System.Text.Json, Version=8.0.0.5, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Json.8.0.5\lib\net462\System.Text.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Text.RegularExpressions" />
@@ -455,7 +474,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('packages\MonoGame.Framework.WindowsDX.3.8.0.1641\build\MonoGame.Framework.WindowsDX.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\MonoGame.Framework.WindowsDX.3.8.0.1641\build\MonoGame.Framework.WindowsDX.targets'))" />
     <Error Condition="!Exists('packages\System.Resources.Extensions.6.0.0\buildTransitive\net461\System.Resources.Extensions.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\System.Resources.Extensions.6.0.0\buildTransitive\net461\System.Resources.Extensions.targets'))" />
-    <Error Condition="!Exists('packages\BlishHUD.1.0.0\build\BlishHUD.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\BlishHUD.1.0.0\build\BlishHUD.targets'))" />
+    <Error Condition="!Exists('packages\BlishHUD.1.2.0\build\BlishHUD.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\BlishHUD.1.2.0\build\BlishHUD.targets'))" />
   </Target>
   <Import Project="packages\System.Resources.Extensions.6.0.0\buildTransitive\net461\System.Resources.Extensions.targets" Condition="Exists('packages\System.Resources.Extensions.6.0.0\buildTransitive\net461\System.Resources.Extensions.targets')" />
   <ProjectExtensions>
@@ -463,5 +482,5 @@
       <UserProperties manifest_1json__JsonSchema="" />
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="packages\BlishHUD.1.0.0\build\BlishHUD.targets" Condition="Exists('packages\BlishHUD.1.0.0\build\BlishHUD.targets')" />
+  <Import Project="packages\BlishHUD.1.2.0\build\BlishHUD.targets" Condition="Exists('packages\BlishHUD.1.2.0\build\BlishHUD.targets')" />
 </Project>

@@ -87,15 +87,12 @@ namespace Nekres.Screenshot_Manager.Core
                 var timeout = DateTime.UtcNow.AddMilliseconds(ScreenshotManagerModule.FILE_TIME_OUT_MILLISECONDS);
                 while (DateTime.UtcNow < timeout)
                 {
-                    try
-                    {
+                    try {
                         var texture = new AsyncTexture2D();
                         ScreenshotNotification.ShowNotification(texture, filePath, Resources.Screenshot_Created_, 5.0f, () => OpenInspectionPanel(filePath));
                         await TextureUtil.GetThumbnail(filePath).ContinueWith(t => texture.SwapTexture(t.Result));
                         break;
-                    }
-                    catch (InvalidOperationException ex)
-                    {
+                    } catch (Exception ex) {
                         if (DateTime.UtcNow < timeout) continue;
                         ScreenshotManagerModule.Logger.Error(ex.Message);
                         return;

@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Nekres.Screenshot_Manager.Properties;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 
@@ -16,9 +17,8 @@ namespace Nekres.Screenshot_Manager.UI.Controls
     {
         public event EventHandler<EventArgs> OnInspect;
         public event EventHandler<ValueEventArgs<bool>> FavoriteChanged;
-        public event EventHandler<EventArgs> OnDelete; 
+        public event EventHandler<EventArgs> OnDelete;
 
-        private Rectangle _nameTextBoxBounds;
         public TextBox NameTextBox { get; private set; }
 
         private const int MAX_FILE_NAME_LENGTH = 50;
@@ -33,13 +33,16 @@ namespace Nekres.Screenshot_Manager.UI.Controls
         //private static Texture2D _trashcanOpenIcon128;
         private static Texture2D _inspectIcon;
 
-        private bool _mouseOverFavButton;
+        private bool      _mouseOverNameTextBox;
+        private Rectangle _nameTextBoxBounds;
+
+        private bool      _mouseOverFavButton;
         private Rectangle _favButtonBounds;
 
-        private bool _mouseOverDelButton;
+        private bool      _mouseOverDelButton;
         private Rectangle _delButtonBounds;
 
-        private bool _mouseOverInspect;
+        private bool      _mouseOverInspect;
         private Rectangle _inspectButtonBounds;
 
         private bool _isFavorite;
@@ -48,8 +51,9 @@ namespace Nekres.Screenshot_Manager.UI.Controls
             get => _isFavorite;
             set
             {
-                FavoriteChanged?.Invoke(this, new ValueEventArgs<bool>(value));
-                SetProperty(ref _isFavorite, value);
+                if (SetProperty(ref _isFavorite, value)) {
+                    FavoriteChanged?.Invoke(this, new ValueEventArgs<bool>(value));
+                }
             }
         }
 
@@ -94,7 +98,7 @@ namespace Nekres.Screenshot_Manager.UI.Controls
             _mouseOverFavButton = _favButtonBounds.Contains(relPos);
             _mouseOverDelButton = _delButtonBounds.Contains(relPos);
             _mouseOverInspect = _inspectButtonBounds.Contains(relPos);
-
+            _mouseOverNameTextBox = _nameTextBoxBounds.Contains(relPos);
             if (_mouseOverFavButton)
                 this.BasicTooltipText = this.IsFavorite ? Resources.Unfavourite : Resources.Favourite;
             else if (_mouseOverDelButton)
@@ -102,31 +106,39 @@ namespace Nekres.Screenshot_Manager.UI.Controls
             else if (_mouseOverInspect)
                 this.BasicTooltipText = Resources.Click_To_Zoom;
             else
-                this.BasicTooltipText = string.Empty;
+                this.BasicTooltipText = Resources.Right_Click_to_Copy;
         }
 
-        protected override void OnClick(MouseEventArgs e)
-        {
-            base.OnClick(e);
-
-            if (_mouseOverInspect)
+        protected override void OnLeftMouseButtonReleased(MouseEventArgs e) {
+            if (_mouseOverInspect) {
                 this.OnInspect?.Invoke(this, EventArgs.Empty);
-
-            if (_mouseOverFavButton)
-            {
+            } else if (_mouseOverFavButton) {
                 this.IsFavorite = !IsFavorite;
                 GameService.Content.PlaySoundEffectByName("color-change");
-            }
-
-            if (_mouseOverDelButton)
+            } else if (_mouseOverDelButton) {
                 this.OnDelete?.Invoke(this, EventArgs.Empty);
+            }
+            base.OnLeftMouseButtonReleased(e);
+            this.InvalidateMousePosition();
+        }
+
+        protected override void OnRightMouseButtonReleased(MouseEventArgs e) {
+            if (Texture.HasTexture) {
+                bool isMouseOverAnyCtrl = _mouseOverFavButton || _mouseOverDelButton || _mouseOverNameTextBox;
+                if (isMouseOverAnyCtrl) return;
+                Texture.Texture.ToBitmap().SaveToClipboard(ImageFormat.Bmp);
+                ScreenNotification.ShowNotification(Resources.Copied_to_Clipboard_);
+                GameService.Content.PlaySoundEffectByName("color-change");
+            }
+            base.OnRightMouseButtonReleased(e);
         }
 
         protected override void OnMouseLeft(MouseEventArgs e)
         {
-            _mouseOverFavButton = false;
-            _mouseOverDelButton = false;
-            _mouseOverInspect = false;
+            _mouseOverFavButton   = false;
+            _mouseOverDelButton   = false;
+            _mouseOverInspect     = false;
+            _mouseOverNameTextBox = false;
             base.OnMouseLeft(e);
         }
 

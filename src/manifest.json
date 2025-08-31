@@ -1,12 +1,12 @@
 {
   "name": "Screenshot Manager",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "namespace": "Nekres.Screenshot_Manager",
   "package": "ScreenshotManager.dll",
   "manifest_version": 1,
   "description": "Capture, view and manage Guild Wars 2 screenshots.",
   "dependencies": {
-    "bh.blishhud": ">=1.0.0"
+    "bh.blishhud": ">=1.2.0"
   },
   "url": "https://github.com/agaertner/bhm-screenshots-manager",
   "enabled_without_gw2": false,

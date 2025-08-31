@@ -126,8 +126,8 @@ Fuzzy</comment>
     <value>The image is in use by another process.</value>
     <comment>Reason for a failed file operation.</comment>
   </data>
-  <data name="The image file doesn't exist anymore!" xml:space="preserve">
-    <value>The image doesn't exist anymore!</value>
+  <data name="The image file doesn&apos;t exist anymore!" xml:space="preserve">
+    <value>The image doesn&apos;t exist anymore!</value>
     <comment>Reason for a failed file operation.</comment>
   </data>
   <data name="A duplicate image name was specified!" xml:space="preserve">
@@ -150,7 +150,7 @@ Fuzzy</comment>
   </data>
   <data name="Rename Image" xml:space="preserve">
     <value>Rename Image</value>
-    <comment>Imperative. Tooltip when hovering a thumbnail's input textbox.</comment>
+    <comment>Imperative. Tooltip when hovering a thumbnail&apos;s input textbox.</comment>
   </data>
   <data name="Click To Zoom" xml:space="preserve">
     <value>Click To Zoom</value>
@@ -166,11 +166,11 @@ Fuzzy</comment>
   </data>
   <data name="Favourite" xml:space="preserve">
     <value>Favourite</value>
-    <comment>Tooltip when hovering a thumbnail's favourite marker.</comment>
+    <comment>Tooltip when hovering a thumbnail&apos;s favourite marker.</comment>
   </data>
   <data name="Unfavourite" xml:space="preserve">
     <value>Unfavourite</value>
-    <comment>Tooltip when hovering a thumbnail's unfavourite marker.</comment>
+    <comment>Tooltip when hovering a thumbnail&apos;s unfavourite marker.</comment>
   </data>
   <data name="Image name cannot be empty." xml:space="preserve">
     <value>Image name cannot be empty.</value>
@@ -182,7 +182,7 @@ Fuzzy</comment>
   </data>
   <data name="Normal" xml:space="preserve">
     <value>Normal</value>
-    <comment>Display name of "Take a normal screenshot."</comment>
+    <comment>Display name of &quot;Take a normal screenshot.&quot;</comment>
   </data>
   <data name="Take a stereoscopic screenshot." xml:space="preserve">
     <value>Take a stereoscopic screenshot.</value>
@@ -194,7 +194,7 @@ Fuzzy</comment>
   </data>
   <data name="Stereoscopic" xml:space="preserve">
     <value>Stereoscopic</value>
-    <comment>Display name of "Take a stereoscopic screenshot."</comment>
+    <comment>Display name of &quot;Take a stereoscopic screenshot.&quot;</comment>
   </data>
   <data name="Disable Screenshot Notification" xml:space="preserve">
     <value>Disable Screenshot Notification</value>
@@ -228,11 +228,6 @@ Fuzzy</comment>
   <data name="Delete sends to Recycle Bin" xml:space="preserve">
     <value>Delete sends to Recycle Bin</value>
   </data>
-  <data name="By default, screenshots are sent to the Recycle Bin so that they can be recovered if needed.\nWhen this feature is disabled, deleted screenshots are removed from the hard disk and their space is marked as overwriteable." xml:space="preserve">
-    <value>By default, screenshots are sent to the Recycle Bin so that they can be recovered if needed.
-When this feature is disabled, deleted screenshots are removed from the hard disk and their space is marked as overwriteable.</value>
-    <comment>Fuzzy</comment>
-  </data>
   <data name="Hide Corner Icon" xml:space="preserve">
     <value>Hide Corner Icon</value>
     <comment>Setting label to hide the menu entry</comment>
@@ -241,19 +236,37 @@ When this feature is disabled, deleted screenshots are removed from the hard dis
     <value>Disables the icon in the navigation menu.</value>
     <comment>Setting tooltip</comment>
   </data>
-  <data name="Choose your preferred image format." xml:space="preserve">
-    <value>Choose your preferred image format.</value>
+  <data name="Copy to Clipboard" xml:space="preserve">
+    <value>Copy to Clipboard</value>
+  </data>
+  <data name="Copies the screenshot to the clipboard after it has been taken." xml:space="preserve">
+    <value>Copies the screenshot to the clipboard after it has been taken.</value>
+  </data>
+  <data name="Copied to Clipboard!" xml:space="preserve">
+    <value>Copied to Clipboard!</value>
   </data>
   <data name="General Options" xml:space="preserve">
     <value>General Options</value>
   </data>
-  <data name="Image Format" xml:space="preserve">
-    <value>Image Format</value>
+  <data name="Sound Options" xml:space="preserve">
+    <value>Sound Options</value>
   </data>
   <data name="Screenshot Options" xml:space="preserve">
     <value>Screenshot Options</value>
   </data>
-  <data name="Sound Options" xml:space="preserve">
-    <value>Sound Options</value>
+  <data name="Choose your preferred image format." xml:space="preserve">
+    <value>Choose your preferred image format.</value>
+  </data>
+  <data name="By default, screenshots are sent to the Recycle Bin so that they can be recovered if needed." xml:space="preserve">
+    <value>By default, screenshots are sent to the Recycle Bin so that they can be recovered if needed.</value>
+  </data>
+  <data name="When this feature is disabled, deleted screenshots are removed from the hard disk and their space is marked as overwriteable." xml:space="preserve">
+    <value>When this feature is disabled, deleted screenshots are removed from the hard disk and their space is marked as overwriteable.</value>
+  </data>
+  <data name="Image Format" xml:space="preserve">
+    <value>Image Format</value>
+  </data>
+  <data name="Right-Click to Copy" xml:space="preserve">
+    <value>Right-Click to Copy</value>
   </data>
 </root>
