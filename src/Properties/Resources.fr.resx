@@ -118,46 +118,46 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Failed to delete image {0}." xml:space="preserve">
-    <value>Impossible de supprimer l'image {0}.</value>
+    <value>Impossible de supprimer l&apos;image {0}.</value>
     <comment>Failed To Delete File Notification
 Fuzzy</comment>
   </data>
   <data name="The image file is in use by another process." xml:space="preserve">
-    <value>L'image est utilisée par un autre processus.</value>
+    <value>L&apos;image est utilisée par un autre processus.</value>
     <comment>Reason for a failed file operation.</comment>
   </data>
-  <data name="The image file doesn't exist anymore!" xml:space="preserve">
-    <value>L'image n'existe plus!</value>
+  <data name="The image file doesn&apos;t exist anymore!" xml:space="preserve">
+    <value>L&apos;image n&apos;existe plus!</value>
     <comment>Reason for a failed file operation.</comment>
   </data>
   <data name="A duplicate image name was specified!" xml:space="preserve">
-    <value>Un nom d'image en double a été spécifié!</value>
+    <value>Un nom d&apos;image en double a été spécifié!</value>
     <comment>Reason for a failed rename operation.</comment>
   </data>
   <data name="The image name contains invalid characters." xml:space="preserve">
-    <value>Le nom de l'image contient des caractères non valides.</value>
+    <value>Le nom de l&apos;image contient des caractères non valides.</value>
   </data>
   <data name="Please enter a different image name." xml:space="preserve">
-    <value>Veuillez saisir un nom d'image différent.</value>
+    <value>Veuillez saisir un nom d&apos;image différent.</value>
     <comment>Prompt to change a specified image name.</comment>
   </data>
   <data name="The following characters are not allowed: {0}" xml:space="preserve">
     <value>Les caractères suivants ne sont pas autorisés: {0}</value>
   </data>
   <data name="Delete Image?" xml:space="preserve">
-    <value>Supprimer l'image?</value>
+    <value>Supprimer l&apos;image?</value>
     <comment>Prompt. Centered text on a thumbnail when hovering the delete button.</comment>
   </data>
   <data name="Rename Image" xml:space="preserve">
-    <value>Renommer l'image</value>
-    <comment>Imperative. Tooltip when hovering a thumbnail's input textbox.</comment>
+    <value>Renommer l&apos;image</value>
+    <comment>Imperative. Tooltip when hovering a thumbnail&apos;s input textbox.</comment>
   </data>
   <data name="Click To Zoom" xml:space="preserve">
     <value>Cliquez pour zoomer</value>
     <comment>Imperative. Tooltip when hovering a thumbnail.</comment>
   </data>
   <data name="Unable to rename image {0}." xml:space="preserve">
-    <value>Impossible de renommer l'image {0}.</value>
+    <value>Impossible de renommer l&apos;image {0}.</value>
     <comment>Failed To Rename File Notification
 Fuzzy</comment>
   </data>
@@ -167,58 +167,58 @@ Fuzzy</comment>
   </data>
   <data name="Favourite" xml:space="preserve">
     <value>Favoris</value>
-    <comment>Tooltip when hovering a thumbnail's favourite marker.</comment>
+    <comment>Tooltip when hovering a thumbnail&apos;s favourite marker.</comment>
   </data>
   <data name="Unfavourite" xml:space="preserve">
     <value>Enlever des favoris</value>
-    <comment>Tooltip when hovering a thumbnail's unfavourite marker.</comment>
+    <comment>Tooltip when hovering a thumbnail&apos;s unfavourite marker.</comment>
   </data>
   <data name="Image name cannot be empty." xml:space="preserve">
-    <value>Le nom de l'image ne peut pas être vide.</value>
+    <value>Le nom de l&apos;image ne peut pas être vide.</value>
     <comment>Error notification when a specified rename text is empty or consists of just spaces.</comment>
   </data>
   <data name="Screenshot Created!" xml:space="preserve">
-    <value>Capture d'écran créée!</value>
+    <value>Capture d&apos;écran créée!</value>
     <comment>Notification header when a screenshot is created (usually using the print screen key).</comment>
   </data>
   <data name="Normal" xml:space="preserve">
     <value>Normale</value>
-    <comment>Display name of "Take a normal screenshot."</comment>
+    <comment>Display name of &quot;Take a normal screenshot.&quot;</comment>
   </data>
   <data name="Take a stereoscopic screenshot." xml:space="preserve">
-    <value>Pour prendre une capture d'écran stéréoscopique.</value>
+    <value>Pour prendre une capture d&apos;écran stéréoscopique.</value>
     <comment>Description or tooltip</comment>
   </data>
   <data name="Take a normal screenshot." xml:space="preserve">
-    <value>Pour prendre une capture d'écran normale.</value>
+    <value>Pour prendre une capture d&apos;écran normale.</value>
     <comment>Description or tooltip</comment>
   </data>
   <data name="Stereoscopic" xml:space="preserve">
     <value>Stéréoscopique</value>
-    <comment>Display name of "Take a stereoscopic screenshot."</comment>
+    <comment>Display name of &quot;Take a stereoscopic screenshot.&quot;</comment>
   </data>
   <data name="Disable Screenshot Notification" xml:space="preserve">
-    <value>Désactiver capture d'écran messages</value>
+    <value>Désactiver capture d&apos;écran messages</value>
   </data>
   <data name="Screenshot" xml:space="preserve">
-    <value>Capture d'écran</value>
+    <value>Capture d&apos;écran</value>
     <comment>display name</comment>
   </data>
   <data name="Mute Screenshot Sound" xml:space="preserve">
-    <value>Couper le son de la capture d'écran</value>
+    <value>Couper le son de la capture d&apos;écran</value>
     <comment>capture sound setting</comment>
   </data>
   <data name="Mutes the sound alert when a new screenshot has been captured." xml:space="preserve">
-    <value>Désactive l'alerte sonore lorsqu'une nouvelle capture d'écran a été effectuée.</value>
+    <value>Désactive l&apos;alerte sonore lorsqu&apos;une nouvelle capture d&apos;écran a été effectuée.</value>
   </data>
   <data name="Disables the notification when a new screenshot has been captured." xml:space="preserve">
-    <value>Désactive la notification lorsqu'une nouvelle capture d'écran a été réalisée.</value>
+    <value>Désactive la notification lorsqu&apos;une nouvelle capture d&apos;écran a été réalisée.</value>
   </data>
   <data name="You are about to permanently destroy {0}." xml:space="preserve">
     <value>Vous êtes sur le point de détruire {0}. La destruction sera irréversible.</value>
   </data>
   <data name="Are you sure?" xml:space="preserve">
-    <value>Vous êtes sûr ?</value>
+    <value>Vous êtes sûr?</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Oui</value>
@@ -229,32 +229,45 @@ Fuzzy</comment>
   <data name="Delete sends to Recycle Bin" xml:space="preserve">
     <value>Supprimer envoie à la corbeille</value>
   </data>
-  <data name="By default, screenshots are sent to the Recycle Bin so that they can be recovered if needed.\nWhen this feature is disabled, deleted screenshots are removed from the hard disk and their space is marked as overwriteable." xml:space="preserve">
-    <value>Par défaut, les captures d'écran sont envoyées à la corbeille afin de pouvoir les restaurer si nécessaire.
-Si cette fonction est désactivée, les captures d'écran supprimées sont retirées du disque dur et leur espace est marqué comme écrasable.</value>
-    <comment>Fuzzy</comment>
-  </data>
   <data name="Hide Corner Icon" xml:space="preserve">
-    <value>Masquer l'élément de menu</value>
+    <value>Masquer l&apos;élément de menu</value>
     <comment>Setting label to hide the menu entry</comment>
   </data>
   <data name="Disables the corner icon in the navigation menu." xml:space="preserve">
-    <value>Désactive l'icône du menu de navigation.</value>
+    <value>Désactive l&apos;icône du menu de navigation.</value>
     <comment>Setting tooltip</comment>
   </data>
-  <data name="Choose your preferred image format." xml:space="preserve">
-    <value>Choisis ton format d'image préféré.</value>
+  <data name="Copy to Clipboard" xml:space="preserve">
+    <value>Copier dans le presse-papiers</value>
+  </data>
+  <data name="Copies the screenshot to the clipboard after it has been taken." xml:space="preserve">
+    <value>Copie la capture d&apos;écran dans le presse-papiers après l&apos;avoir prise.</value>
+  </data>
+  <data name="Copied to Clipboard!" xml:space="preserve">
+    <value>Copié dans le presse-papiers!</value>
   </data>
   <data name="General Options" xml:space="preserve">
     <value>Options générales</value>
   </data>
-  <data name="Image Format" xml:space="preserve">
-    <value>Format d'image</value>
+  <data name="Sound Options" xml:space="preserve">
+    <value>Options audio</value>
   </data>
   <data name="Screenshot Options" xml:space="preserve">
-    <value>Options de capture d'écran</value>
+    <value>Options de capture d&apos;écran</value>
   </data>
-  <data name="Sound Options" xml:space="preserve">
-    <value>Options sonores</value>
+  <data name="Choose your preferred image format." xml:space="preserve">
+    <value>Choisissez votre format d&apos;image préféré.</value>
+  </data>
+  <data name="By default, screenshots are sent to the Recycle Bin so that they can be recovered if needed." xml:space="preserve">
+    <value>Par défaut, les captures d&apos;écran sont envoyées dans la corbeille afin de pouvoir être récupérées si nécessaire.</value>
+  </data>
+  <data name="When this feature is disabled, deleted screenshots are removed from the hard disk and their space is marked as overwriteable." xml:space="preserve">
+    <value>Lorsque cette fonctionnalité est désactivée, les captures d&apos;écran supprimées sont effacées du disque dur et l&apos;espace qu&apos;elles occupaient est marqué comme pouvant être réécrit.</value>
+  </data>
+  <data name="Image Format" xml:space="preserve">
+    <value>Format d&apos;image</value>
+  </data>
+  <data name="Right-Click to Copy" xml:space="preserve">
+    <value>Cliquez avec le bouton droit pour copier</value>
   </data>
 </root>

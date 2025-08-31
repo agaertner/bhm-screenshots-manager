@@ -15,8 +15,8 @@ namespace Nekres.Screenshot_Manager_Module.Controls
     {
         private static int _visibleNotifications;
 
-        private static readonly BitmapFont Font = GameService.Content.GetFont(ContentService.FontFace.Menomonia, ContentService.FontSize.Size24, ContentService.FontStyle.Regular);
-        private static readonly BitmapFont TitleFont = GameService.Content.GetFont(ContentService.FontFace.Menomonia, ContentService.FontSize.Size22, ContentService.FontStyle.Regular);
+        private static readonly BitmapFont _font = GameService.Content.GetFont(ContentService.FontFace.Menomonia, ContentService.FontSize.Size24, ContentService.FontStyle.Regular);
+        private static readonly BitmapFont _titleFont = GameService.Content.GetFont(ContentService.FontFace.Menomonia, ContentService.FontSize.Size22, ContentService.FontStyle.Regular);
 
         private readonly ThumbnailBase _thumbnail;
         private readonly string _message;
@@ -49,13 +49,13 @@ namespace Nekres.Screenshot_Manager_Module.Controls
         {
             base.PaintBeforeChildren(spriteBatch, bound);
             spriteBatch.DrawOnCtrl(this, ContentService.Textures.Pixel, bound, Color.Black * 0.4f);
-            spriteBatch.DrawStringOnCtrl(this, _message, Font, new Rectangle(0,0, this.Width, HEADER_HEIGHT), Color.White, false, true, 2, HorizontalAlignment.Center);
+            spriteBatch.DrawStringOnCtrl(this, _message, _font, new Rectangle(0,0, this.Width, HEADER_HEIGHT), Color.White, false, true, 2, HorizontalAlignment.Center);
         }
 
         public override void PaintAfterChildren(SpriteBatch spriteBatch, Rectangle bound)
         {
             base.PaintAfterChildren(spriteBatch, bound);
-            spriteBatch.DrawStringOnCtrl(this, $"\u201c{Path.GetFileNameWithoutExtension(_thumbnail.FileName)}\u201d", TitleFont, new Rectangle(0, HEADER_HEIGHT + 2, this.Width, HEADER_HEIGHT), Color.White, false, true, 1, HorizontalAlignment.Center);
+            spriteBatch.DrawStringOnCtrl(this, $"\u201c{Path.GetFileNameWithoutExtension(_thumbnail.FileName)}\u201d", _titleFont, new Rectangle(0, HEADER_HEIGHT + 2, this.Width, HEADER_HEIGHT), Color.White, false, true, 1, HorizontalAlignment.Center);
         }
 
         private void Show(float duration)

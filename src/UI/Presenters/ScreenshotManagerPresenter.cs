@@ -138,13 +138,24 @@ namespace Nekres.Screenshot_Manager.UI.Presenters
             ScreenshotManagerModule.ModuleInstance.Favorites.Value = favorites.ToList();
         }
 
-        public int SortThumbnails(ResponsiveThumbnail x, ResponsiveThumbnail y)
-        {
+        public int SortThumbnails(ResponsiveThumbnail x, ResponsiveThumbnail y) {
             var fileNameX = Path.GetFileNameWithoutExtension(x.FileName);
             var fileNameY = Path.GetFileNameWithoutExtension(y.FileName);
+
+            // Update visibility.
             x.Visible = fileNameX.Contains(this.View.SearchBox.Text);
             y.Visible = fileNameY.Contains(this.View.SearchBox.Text);
-            return x.Visible && y.Visible ? y.IsFavorite.CompareTo(x.IsFavorite) : string.Compare(fileNameX, fileNameY, StringComparison.InvariantCultureIgnoreCase);
+
+            // Favorites first.
+            if (x.IsFavorite  && !y.IsFavorite) return -1;
+            if (!x.IsFavorite && y.IsFavorite) return 1;
+
+            // Visible items.
+            if (x.Visible  && !y.Visible) return -1;
+            if (!x.Visible && y.Visible) return 1;
+
+            // Fallback to alphabetical.
+            return string.Compare(fileNameX, fileNameY, StringComparison.InvariantCultureIgnoreCase);
         }
     }
 }

@@ -13,6 +13,13 @@ namespace Nekres.Screenshot_Manager.UI.Controls
         private static BitmapFont _font = GameService.Content.GetFont(ContentService.FontFace.Menomonia, ContentService.FontSize.Size36, ContentService.FontStyle.Regular);
 
         private AsyncTexture2D _texture;
+        public AsyncTexture2D Texture {
+            get => _texture;
+            set {
+                _texture?.Dispose();
+                SetProperty(ref _texture, value);
+            }
+        }
 
         private string _fileName;
         public string FileName
@@ -29,20 +36,21 @@ namespace Nekres.Screenshot_Manager.UI.Controls
 
         protected override void DisposeControl()
         {
-            _texture.Dispose();
+            _texture?.Dispose();
             base.DisposeControl();
         }
 
         public override void PaintBeforeChildren(SpriteBatch spriteBatch, Rectangle bounds)
         {
-            spriteBatch.DrawOnCtrl(this, ContentService.Textures.Pixel, bounds, new Color(44, 47, 51));
+            // Darken background
+            spriteBatch.DrawOnCtrl(this, ContentService.Textures.Pixel, bounds, Color.Black);
             if (_texture.HasTexture)
             {
-                spriteBatch.DrawOnCtrl(this, _texture.Texture, _texture.Texture.Bounds.Fit(bounds));
+                spriteBatch.DrawOnCtrl(this, _texture.Texture, _texture.Texture.Bounds.ScaleTo(bounds, 1, true));
                 spriteBatch.DrawStringOnCtrl(this, 
                     Path.GetExtension(this.FileName).TrimStart('.').ToUpperInvariant(), _font, 
                     new Rectangle(bounds.X + 10, bounds.Y + 3, bounds.Width - 20, bounds.Height - 6), 
-                    new Color(Color.White, 0.5f), false, false, 1, HorizontalAlignment.Left, VerticalAlignment.Top);
+                    new Color(Color.Gray, 0.5f), false, false, 1, HorizontalAlignment.Left, VerticalAlignment.Top);
             }
             else
                 LoadingSpinnerUtil.DrawLoadingSpinner(this, spriteBatch, bounds);

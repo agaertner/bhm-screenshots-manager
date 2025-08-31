@@ -9,12 +9,12 @@ namespace Nekres.Screenshot_Manager
     internal static class FileUtil
     {
         public static string IndexedFilename(string stub, string extension) {
-            int ix = 0;
+            int    ix = 1;
             string filename;
             do {
+                string indexStr = ix.ToString("D3"); // 001, 002, etc.
+                filename = $"{stub}{indexStr}.{extension}";
                 ix++;
-                var zeros = ix < 10 ? "00" : ix < 100 ? "0" : string.Empty;
-                filename = string.Format("{0}{1}{2}.{3}", stub, zeros, ix, extension);
             } while (File.Exists(filename));
             return filename;
         }
