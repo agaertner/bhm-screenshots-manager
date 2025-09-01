@@ -4,8 +4,10 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
+using Size = System.Drawing.Size;
+
 namespace Nekres.Screenshot_Manager
 {
     internal static class BitmapExtensions
@@ -53,16 +55,26 @@ namespace Nekres.Screenshot_Manager
         public static void SaveToClipboard(this Image image, ImageFormat imageFormat) {
             try {
                 var dataObject = new System.Windows.Forms.DataObject();
-                dataObject.SetData(System.Windows.Forms.DataFormats.Bitmap, true, image);
+                dataObject.SetData(GetClipboardFormatString(ImageFormat.Bmp), true, image);
                 using (var stream = new MemoryStream()) {
                     image.Save(stream, imageFormat);
                     stream.Position = 0;
-                    dataObject.SetData(imageFormat.ToString(), false, stream);
+                    dataObject.SetData(GetClipboardFormatString(imageFormat), false, stream);
                 }
                 System.Windows.Forms.Clipboard.SetDataObject(dataObject, true);
             } catch (Exception ex) {
                 ScreenshotManagerModule.Logger.Warn(ex, ex.Message);
             }
+        }
+
+        private static string GetClipboardFormatString(ImageFormat format) {
+            if (Equals(format, ImageFormat.Bmp)) return DataFormats.Bitmap;
+            if (Equals(format, ImageFormat.Tiff)) return DataFormats.Tiff;
+            if (Equals(format, ImageFormat.Gif)) return "image/gif";
+            if (Equals(format, ImageFormat.Jpeg)) return "image/jpeg";
+            if (Equals(format, ImageFormat.Png)) return "image/png";
+            if (Equals(format, ImageFormat.Icon)) return "image/x-icon";
+            return "application/octet-stream";
         }
 
         public static Bitmap CompressToTargetSize(this Bitmap bitmap, long maxBytes) {

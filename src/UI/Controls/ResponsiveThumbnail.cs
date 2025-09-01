@@ -123,14 +123,31 @@ namespace Nekres.Screenshot_Manager.UI.Controls
         }
 
         protected override void OnRightMouseButtonReleased(MouseEventArgs e) {
-            if (Texture.HasTexture) {
+            if (File.Exists(FileName)) {
                 bool isMouseOverAnyCtrl = _mouseOverFavButton || _mouseOverDelButton || _mouseOverNameTextBox;
                 if (isMouseOverAnyCtrl) return;
-                Texture.Texture.ToBitmap().SaveToClipboard(ImageFormat.Bmp);
-                ScreenNotification.ShowNotification(Resources.Copied_to_Clipboard_);
-                GameService.Content.PlaySoundEffectByName("color-change");
+                if (TryLoadImage(out var tex)) {
+                    tex.ToBitmap().SaveToClipboard(GetImageFormatFromExtension(FileName));
+                    ScreenNotification.ShowNotification(Resources.Copied_to_Clipboard_);
+                    GameService.Content.PlaySoundEffectByName("color-change");
+                    tex.Dispose();
+                }
             }
             base.OnRightMouseButtonReleased(e);
+        }
+
+        private static ImageFormat GetImageFormatFromExtension(string extension) {
+            switch (extension.ToUpperInvariant()) {
+                case ".BMP": return ImageFormat.Bmp;
+                case ".PNG": return ImageFormat.Png;
+                case ".JPG":
+                case ".JPEG": return ImageFormat.Jpeg;
+                case ".GIF": return ImageFormat.Gif;
+                case ".TIFF":
+                case ".TIF": return ImageFormat.Tiff;
+                case ".ICO": return ImageFormat.Icon;
+                default:     return ImageFormat.Png;
+            }
         }
 
         protected override void OnMouseLeft(MouseEventArgs e)
