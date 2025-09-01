@@ -206,7 +206,6 @@ namespace Nekres.Screenshot_Manager
                 await bitmap.SaveOnNetworkShare(name, format);
                 if (this.CopyToClipboard.Value) {
                     bitmap.SaveToClipboard(format);
-                    ScreenNotification.ShowNotification(Resources.Copied_to_Clipboard_);
                 }
             }
         }

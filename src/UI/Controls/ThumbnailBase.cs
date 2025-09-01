@@ -1,10 +1,11 @@
-﻿using System.IO;
-using Blish_HUD;
+﻿using Blish_HUD;
 using Blish_HUD.Content;
 using Blish_HUD.Controls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.BitmapFonts;
+using System;
+using System.IO;
 
 namespace Nekres.Screenshot_Manager.UI.Controls
 {
@@ -38,6 +39,21 @@ namespace Nekres.Screenshot_Manager.UI.Controls
         {
             _texture?.Dispose();
             base.DisposeControl();
+        }
+
+        public bool TryLoadImage(out Texture2D texture) {
+            try {
+                using (var stream = File.OpenRead(FileName)) {
+                    using (var ctx = GameService.Graphics.LendGraphicsDeviceContext()) {
+                        texture = Texture2D.FromStream(ctx.GraphicsDevice, stream);
+                    }
+                }
+                return true;
+            } catch (Exception ex) {
+                ScreenshotManagerModule.Logger.Warn(ex, $"Failed to copy image to clipboard: {FileName}"); 
+                texture = null; 
+                return false;
+            }
         }
 
         public override void PaintBeforeChildren(SpriteBatch spriteBatch, Rectangle bounds)
