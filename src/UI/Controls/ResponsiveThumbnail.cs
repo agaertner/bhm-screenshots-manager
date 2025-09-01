@@ -127,10 +127,11 @@ namespace Nekres.Screenshot_Manager.UI.Controls
                 bool isMouseOverAnyCtrl = _mouseOverFavButton || _mouseOverDelButton || _mouseOverNameTextBox;
                 if (isMouseOverAnyCtrl) return;
                 if (TryLoadImage(out var tex)) {
-                    tex.ToBitmap().SaveToClipboard(GetImageFormatFromExtension(FileName));
+                    using var bmp = tex.ToBitmap();
+                    bmp.SaveToClipboard(GetImageFormatFromExtension(FileName));
+                    tex.Dispose();
                     ScreenNotification.ShowNotification(Resources.Copied_to_Clipboard_);
                     GameService.Content.PlaySoundEffectByName("color-change");
-                    tex.Dispose();
                 }
             }
             base.OnRightMouseButtonReleased(e);
